@@ -1,0 +1,2 @@
+rootProject.name = "pawnsome2"
+include ':app'

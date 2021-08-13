@@ -3,6 +3,9 @@ package com.example.pawnsome2;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -72,13 +75,14 @@ public class ExampleAdapter extends RecyclerView.Adapter<ExampleAdapter.ExampleV
     }
 
     public class ExampleViewHolder extends RecyclerView.ViewHolder{
-        public ImageView mImageView;
+        public ImageView mImageView,mFavoriteButton;
         public TextView mBreedName;
         public TextView mId;
 
 
         public ExampleViewHolder( View itemView) {
             super(itemView);
+            mFavoriteButton=itemView.findViewById(R.id.Favorite_btn);
             mImageView =itemView.findViewById(R.id.image_view);
             mBreedName=itemView.findViewById(R.id.Breed_Name);
             mId=itemView.findViewById(R.id.Breed_Id);

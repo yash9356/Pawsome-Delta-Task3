@@ -8,14 +8,20 @@
     app:cardCornerRadius="10dp"
     >
 
+    <View
+        android:id="@+id/view7"
+        android:layout_width="match_parent"
+        android:layout_height="260dp"
+        android:background="@color/white" />
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="260dp">
 
         <LinearLayout
             android:id="@+id/linearLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="419dp"
+            android:layout_height="260dp"
             android:background="#4E4E4E"
             android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -25,17 +31,17 @@
 
             <ImageView
                 android:id="@+id/image_view"
-                android:transitionName="example_transition"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
                 android:background="@color/colorPrimaryDark1"
-                android:src="@mipmap/ic_launcher" />
+                android:src="@mipmap/ic_launcher"
+                android:transitionName="example_transition" />
 
-            <TextView
-                android:id="@+id/textView2"
-                android:background="@color/colorPrimary1"
+            <View
+                android:id="@+id/view8"
                 android:layout_width="match_parent"
-                android:layout_height="50dp" />
+                android:layout_height="65dp"
+                android:background="@color/colorPrimary1" />
 
 
         </LinearLayout>
@@ -55,6 +61,7 @@
             app:layout_constraintTop_toTopOf="@+id/linearLayout" />
 
         <androidx.cardview.widget.CardView
+            android:id="@+id/cardView2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="20dp"
@@ -67,12 +74,36 @@
                 android:id="@+id/Breed_Name"
                 android:layout_width="match_parent"
                 android:layout_height="55dp"
+                android:background="@color/colorPrimary1"
                 android:gravity="center"
                 android:hint="Breed_Name"
-                android:background="@color/colorPrimary1"
                 android:textColor="@color/white"
                 android:textSize="20dp"
                 android:textStyle="italic" />
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="50dp"
+            android:layout_marginBottom="30dp"
+            app:cardCornerRadius="4dp"
+            app:layout_constraintBottom_toBottomOf="@+id/linearLayout"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cardView2">
+
+            <View
+                android:id="@+id/view17"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@color/white" />
+
+            <ImageView
+                android:id="@+id/Favorite_btn"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:srcCompat="@drawable/ic_baseline_favorite_24" />
+
         </androidx.cardview.widget.CardView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

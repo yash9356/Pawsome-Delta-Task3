@@ -41,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().hide();
         setContentView(R.layout.activity_main);
 
+
         searchtxt=findViewById(R.id.SearchText);
         searchbtn=findViewById(R.id.Searchbtn);
         clearbtn=findViewById(R.id.Clearbtn);

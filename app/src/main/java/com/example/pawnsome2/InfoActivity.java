@@ -2,8 +2,15 @@ package com.example.pawnsome2;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.icu.text.CaseMap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.transition.TransitionInflater;
+import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -22,7 +29,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class InfoActivity extends AppCompatActivity {
-    ImageView imageView1;
+    ImageView ShareButton;
     String breedgroup;
     String origin;
     String breedfor;
@@ -54,14 +61,30 @@ public class InfoActivity extends AppCompatActivity {
         breed_group1=findViewById(R.id.breed_group);
         descripation1=findViewById(R.id.breed_description1);
         temperament1=findViewById(R.id.breed_temperament);
+        ShareButton=findViewById(R.id.Share_btn);
+        ShareButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                BitmapDrawable drawable= (BitmapDrawable) imageView.getDrawable();
+                Bitmap bitmap= drawable.getBitmap();
+                String bitmapPath = MediaStore.Images.Media.insertImage(getContentResolver(),bitmap, "title",null);
+                Uri uri = Uri.parse(bitmapPath);
+                Intent intent =new Intent(Intent.ACTION_SEND);
+                intent.setType("image/png");
+                intent.putExtra(Intent.EXTRA_STREAM,uri);
+                startActivity(Intent.createChooser(intent,"Share"));
+
+            }
+        });
+
 
         mRequestQueue= Volley.newRequestQueue(this);
         id1=getIntent().getIntExtra("ID",0);
-        parseJason(imageView1,id1);
+        parseJason(id1);
 
     }
 
-    private void parseJason(ImageView imageView, int id1) {
+    private void parseJason( int id1) {
         String url="https://api.thedogapi.com/v1/breeds";
 
 

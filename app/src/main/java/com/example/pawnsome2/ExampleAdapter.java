@@ -1,5 +1,6 @@
 package com.example.pawnsome2;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -9,6 +10,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.app.ActivityOptionsCompat;
+import androidx.core.util.Pair;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.squareup.picasso.Picasso;
@@ -49,8 +52,12 @@ public class ExampleAdapter extends RecyclerView.Adapter<ExampleAdapter.ExampleV
             public void onClick(View v) {
                 Intent intent =new Intent(mContext,InfoActivity.class);
                 intent.putExtra("ID",id);
+                intent.putExtra("ImgUrl",imageUrl);
+                Pair<View, String> p1 = Pair.create((View)holder.mImageView, "example_transition");
+                ActivityOptionsCompat options = ActivityOptionsCompat.
+                        makeSceneTransitionAnimation((Activity) mContext, p1);
+                mContext.startActivity(intent,options.toBundle());
 
-                mContext.startActivity(intent);
             }
         });
 

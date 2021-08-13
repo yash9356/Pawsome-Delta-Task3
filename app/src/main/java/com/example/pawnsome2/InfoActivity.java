@@ -3,6 +3,7 @@ package com.example.pawnsome2;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.transition.TransitionInflater;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -40,7 +41,13 @@ public class InfoActivity extends AppCompatActivity {
         getSupportActionBar().hide();
         setContentView(R.layout.activity_info);
 
-        imageView1=findViewById(R.id.breed_image1);
+        String ImageUrl=getIntent().getStringExtra("ImgUrl");
+        ImageView imageView=findViewById(R.id.image_view);
+        getWindow().setSharedElementEnterTransition(TransitionInflater.from(this).inflateTransition(R.transition.transition_image));
+        imageView.setTransitionName("example_transition");
+        //String ImgUrl=getIntent().getStringExtra("ImgUrl");
+        Picasso.with(InfoActivity.this).load(ImageUrl).fit().centerInside().into(imageView);
+        //imageView1=findViewById(R.id.image_view);
         weight1=findViewById(R.id.breed_weight);
         height1=findViewById(R.id.breed_height);
         origin1=findViewById(R.id.breed_origin);
@@ -135,7 +142,7 @@ public class InfoActivity extends AppCompatActivity {
                             }
 
 
-                            Picasso.with(InfoActivity.this).load(imgUrl).fit().centerInside().into(imageView1);
+                            //Picasso.with(InfoActivity.this).load(imgUrl).fit().centerInside().into(imageView1);
 
                         }
 

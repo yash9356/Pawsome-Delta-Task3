@@ -67,10 +67,11 @@ public class InfoActivity extends AppCompatActivity {
             public void onClick(View v) {
                 BitmapDrawable drawable= (BitmapDrawable) imageView.getDrawable();
                 Bitmap bitmap= drawable.getBitmap();
-                String bitmapPath = MediaStore.Images.Media.insertImage(getContentResolver(),bitmap, "title",null);
+                String bitmapPath = MediaStore.Images.Media.insertImage(getContentResolver(),bitmap, "Dog API","Dog Image");
                 Uri uri = Uri.parse(bitmapPath);
                 Intent intent =new Intent(Intent.ACTION_SEND);
-                intent.setType("image/png");
+                intent.setType("image/*");
+                //intent.setPackage("com.whatsapp");
                 intent.putExtra(Intent.EXTRA_STREAM,uri);
                 startActivity(Intent.createChooser(intent,"Share"));
 

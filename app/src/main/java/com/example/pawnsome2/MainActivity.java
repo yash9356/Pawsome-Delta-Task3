@@ -3,6 +3,7 @@ package com.example.pawnsome2;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.room.processor.Context;
 
 import android.os.Bundle;
 import android.view.View;
@@ -17,21 +18,25 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.pawnsome2.database.AppDataBase;
+import com.example.pawnsome2.database.FavDog;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
+    private static MainActivity instance;
     private RecyclerView mRecycleView;
     private ExampleAdapter mEampleAdapter;
-    private ArrayList<ExampleItem> mExampleList;
+    private ArrayList<ExampleItem> mExampleList,mExampleFavList;
     private RequestQueue mRequestQueue;
     private EditText searchtxt;
-    private ImageButton searchbtn,clearbtn;
+    private ImageButton searchbtn,clearbtn,Favbutton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,16 +45,19 @@ public class MainActivity extends AppCompatActivity {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         getSupportActionBar().hide();
         setContentView(R.layout.activity_main);
+        instance = this;
 
 
         searchtxt=findViewById(R.id.SearchText);
         searchbtn=findViewById(R.id.Searchbtn);
         clearbtn=findViewById(R.id.Clearbtn);
+        Favbutton=findViewById(R.id.FavButton);
         mRecycleView=findViewById(R.id.recyler_view);
         mRecycleView.setHasFixedSize(true);
         mRecycleView.setLayoutManager(new LinearLayoutManager(this));
 
         mExampleList=new ArrayList<>();
+        mExampleFavList=new ArrayList<>();
         mRequestQueue= Volley.newRequestQueue(this);
         parseJSON();
         searchbtn.setOnClickListener(new View.OnClickListener() {
@@ -61,6 +69,13 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        Favbutton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(MainActivity.this,"Favorite_Dog_List",Toast.LENGTH_SHORT).show();
+                loadsFavDogList();
+            }
+        });
         clearbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -166,5 +181,28 @@ public class MainActivity extends AppCompatActivity {
             capitalizeWord+=first.toUpperCase()+afterfirst+" ";
         }
         return capitalizeWord.trim();
+    }
+    public static MainActivity getInstance() {
+        return instance;
+    }
+
+    public void SaveNewFavDog(String BreedName,String BreedUrl,int id1){
+
+//        AppDataBase db=AppDataBase.getDbInstance(this.getApplicationContext());
+//        FavDog favDog=new FavDog();
+//        favDog.breedname=BreedName;
+//        favDog.id=id1;
+//        favDog.breedurl=BreedUrl;
+        mExampleFavList.add(new ExampleItem(BreedName,BreedUrl,id1));
+
+//        db.favDogDao().insertFavDog(favDog);
+//        finish();
+    }
+    public void loadsFavDogList(){
+        //AppDataBase db=AppDataBase.getDbInstance(this.getApplicationContext());
+        //List<FavDog> favDogList=db.favDogDao().getAllFavDog();
+        mEampleAdapter =new ExampleAdapter(MainActivity.this,mExampleFavList);
+        mRecycleView.setAdapter(mEampleAdapter);
+        
     }
 }

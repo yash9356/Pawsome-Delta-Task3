@@ -4,19 +4,24 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.DrawableContainer;
 import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityOptionsCompat;
 import androidx.core.util.Pair;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.pawnsome2.database.AppDataBase;
 import com.squareup.picasso.Picasso;
 
 import org.jetbrains.annotations.NotNull;
@@ -36,6 +41,7 @@ public class ExampleAdapter extends RecyclerView.Adapter<ExampleAdapter.ExampleV
     @Override
     public ExampleViewHolder onCreateViewHolder( ViewGroup parent, int viewType) {
         View v= LayoutInflater.from(mContext).inflate(R.layout.example_item,parent,false);
+
         return new ExampleViewHolder(v);
     }
 
@@ -46,10 +52,19 @@ public class ExampleAdapter extends RecyclerView.Adapter<ExampleAdapter.ExampleV
         String imageUrl= currentItem.getImageUrl();
         String breedName=currentItem.getBreedName();
         int id=currentItem.getId();
+        holder.mFavoriteButton.setTag(position);
 
         holder.mBreedName.setText(breedName);
         holder.mId.setText(Integer.toString(id));
         Picasso.with(mContext).load(imageUrl).fit().centerInside().into(holder.mImageView);
+        holder.mFavoriteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                holder.mFavoriteButton.setBackgroundResource(R.drawable.ic_favorite2);
+                Toast.makeText(MainActivity.getInstance(),"Added to Favorite",Toast.LENGTH_SHORT).show();
+                MainActivity.getInstance().SaveNewFavDog(breedName,imageUrl,id);
+            }
+        });
         holder.mImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -64,10 +79,8 @@ public class ExampleAdapter extends RecyclerView.Adapter<ExampleAdapter.ExampleV
             }
         });
 
-
-
-
     }
+
 
     @Override
     public int getItemCount() {

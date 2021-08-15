@@ -8,6 +8,7 @@
     tools:context=".MainActivity">
 
     <LinearLayout
+        android:id="@+id/linearLayout3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -40,6 +41,7 @@
             android:layout_width="50dp"
             android:layout_height="50dp"
             app:srcCompat="@android:drawable/ic_menu_close_clear_cancel" />
+
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
@@ -57,6 +59,14 @@
         app:layout_constraintTop_toTopOf="parent">
 
     </androidx.recyclerview.widget.RecyclerView>
+
+    <ImageButton
+        android:id="@+id/FavButton"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:background="@drawable/favorite"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout3" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

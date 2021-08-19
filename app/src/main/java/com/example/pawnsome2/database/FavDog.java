@@ -6,6 +6,8 @@ import androidx.room.PrimaryKey;
 
 @Entity
 public class FavDog {
+    @PrimaryKey(autoGenerate = true)
+    public int breedsr;
 
     @ColumnInfo(name = "Breed_Id")
     public int breedid;
@@ -15,4 +17,6 @@ public class FavDog {
 
     @ColumnInfo(name="Breed_Image_Url")
     public String breedurl;
+
+
 }

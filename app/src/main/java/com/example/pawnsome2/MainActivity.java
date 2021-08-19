@@ -1,13 +1,17 @@
 package com.example.pawnsome2;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.room.processor.Context;
+//import androidx.room.processor.Context;
+
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.AbsListView;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
@@ -21,6 +25,7 @@ import com.android.volley.toolbox.Volley;
 import com.example.pawnsome2.database.AppDataBase;
 import com.example.pawnsome2.database.FavDog;
 
+import org.jetbrains.annotations.NotNull;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -36,7 +41,11 @@ public class MainActivity extends AppCompatActivity {
     private ArrayList<ExampleItem> mExampleList,mExampleFavList;
     private RequestQueue mRequestQueue;
     private EditText searchtxt;
+    private LinearLayoutManager manager;
+    Boolean isScrolling=false;
+    int currrentItem,totalItem,scrollOutItem;
     private ImageButton searchbtn,clearbtn,Favbutton;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,14 +56,14 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         instance = this;
 
-
         searchtxt=findViewById(R.id.SearchText);
         searchbtn=findViewById(R.id.Searchbtn);
         clearbtn=findViewById(R.id.Clearbtn);
         Favbutton=findViewById(R.id.FavButton);
         mRecycleView=findViewById(R.id.recyler_view);
         mRecycleView.setHasFixedSize(true);
-        mRecycleView.setLayoutManager(new LinearLayoutManager(this));
+        manager=new LinearLayoutManager(this);
+        mRecycleView.setLayoutManager(manager);
 
         mExampleList=new ArrayList<>();
         mExampleFavList=new ArrayList<>();
@@ -87,6 +96,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
     }
+
 
     private void parseJSON() {
         String url="https://api.thedogapi.com/v1/breeds";
@@ -188,19 +198,24 @@ public class MainActivity extends AppCompatActivity {
 
     public void SaveNewFavDog(String BreedName,String BreedUrl,int id1){
 
-//        AppDataBase db=AppDataBase.getDbInstance(this.getApplicationContext());
-//        FavDog favDog=new FavDog();
-//        favDog.breedname=BreedName;
-//        favDog.id=id1;
-//        favDog.breedurl=BreedUrl;
-        mExampleFavList.add(new ExampleItem(BreedName,BreedUrl,id1));
-
+        //AppDataBase db=AppDataBase.getDbInstance(this.getApplicationContext());
+        AppDataBase db=AppDataBase.getDbInstance();
+        FavDog favDogs=new FavDog();
+        favDogs.breedname=BreedName;
+        favDogs.breedid=id1;
+        favDogs.breedurl=BreedUrl;
+        db.favDogDao().insertFavDog(favDogs);
 //        db.favDogDao().insertFavDog(favDog);
-//        finish();
+        finish();
+        mExampleFavList.add(new ExampleItem(BreedName,BreedUrl,id1));
     }
     public void loadsFavDogList(){
         //AppDataBase db=AppDataBase.getDbInstance(this.getApplicationContext());
-        //List<FavDog> favDogList=db.favDogDao().getAllFavDog();
+        AppDataBase db=AppDataBase.getDbInstance();
+        List<FavDog> favDogList=db.favDogDao().getAllFavDog();
+        favDogList.get(1);
+
+        Toast.makeText(this,"Favorite Dog List",Toast.LENGTH_SHORT).show();
         mEampleAdapter =new ExampleAdapter(MainActivity.this,mExampleFavList);
         mRecycleView.setAdapter(mEampleAdapter);
         

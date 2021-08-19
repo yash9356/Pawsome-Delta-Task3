@@ -17,10 +17,10 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageButton
-            android:id="@+id/Searchbtn"
+            android:id="@+id/Clearbtn"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            app:srcCompat="@android:drawable/ic_menu_search" />
+            app:srcCompat="@drawable/home2" />
 
         <EditText
             android:id="@+id/SearchText"
@@ -37,10 +37,10 @@
             android:textSize="20dp" />
 
         <ImageButton
-            android:id="@+id/Clearbtn"
+            android:id="@+id/Searchbtn"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            app:srcCompat="@android:drawable/ic_menu_close_clear_cancel" />
+            app:srcCompat="@android:drawable/ic_menu_search" />
 
     </LinearLayout>
 

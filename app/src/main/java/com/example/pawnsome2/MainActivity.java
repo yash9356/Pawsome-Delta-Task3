@@ -199,21 +199,20 @@ public class MainActivity extends AppCompatActivity {
     public void SaveNewFavDog(String BreedName,String BreedUrl,int id1){
 
         //AppDataBase db=AppDataBase.getDbInstance(this.getApplicationContext());
-        AppDataBase db=AppDataBase.getDbInstance();
-        FavDog favDogs=new FavDog();
-        favDogs.breedname=BreedName;
-        favDogs.breedid=id1;
-        favDogs.breedurl=BreedUrl;
-        db.favDogDao().insertFavDog(favDogs);
-//        db.favDogDao().insertFavDog(favDog);
-        finish();
+//        AppDataBase db=AppDataBase.getDbInstance();
+//        FavDog favDogs=new FavDog();
+//        favDogs.breedname=BreedName;
+//        favDogs.breedid=id1;
+//        favDogs.breedurl=BreedUrl;
+//        db.favDogDao().insertFavDog(favDogs);
+//        finish();
         mExampleFavList.add(new ExampleItem(BreedName,BreedUrl,id1));
     }
     public void loadsFavDogList(){
         //AppDataBase db=AppDataBase.getDbInstance(this.getApplicationContext());
-        AppDataBase db=AppDataBase.getDbInstance();
-        List<FavDog> favDogList=db.favDogDao().getAllFavDog();
-        favDogList.get(1);
+//        AppDataBase db=AppDataBase.getDbInstance();
+//        List<FavDog> favDogList=db.favDogDao().getAllFavDog();
+//        favDogList.get(1);
 
         Toast.makeText(this,"Favorite Dog List",Toast.LENGTH_SHORT).show();
         mEampleAdapter =new ExampleAdapter(MainActivity.this,mExampleFavList);
